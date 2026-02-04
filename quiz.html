@@ -2,13 +2,10 @@
 <html lang="en">
 <head>
   <title>Your Profile Quiz</title>
-
-  <!-- Mobile-friendly scaling -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
-      aligned-items: center;
       font-family: Arial, sans-serif;
       background: #f7f7f7;
       margin: 0;
@@ -18,48 +15,96 @@
 
     h1 {
       font-size: 28px;
-      margin-bottom: 10px;
     }
 
     p {
-      font-size: 18px;
+      font-size: 20px;
     }
 
     button {
       font-size: 18px;
-      padding: 14px 24px;
-      margin: 12px;
+      padding: 14px 22px;
+      margin: 10px;
       border: none;
       border-radius: 10px;
       background-color: #ff6fae;
       color: white;
     }
 
-    button:hover {
-      opacity: 0.9;
+    button.secondary {
+      background-color: #aaa;
     }
   </style>
 </head>
 
 <body>
 
-  <h1>💭 Tell us about you</h1>
+  <h1>💭 About You</h1>
 
-  <p>Are you more introverted or extroverted?</p>
+  <!-- Start screen -->
+  <div id="startScreen">
+    <p>This quiz helps create your profile.</p>
+    <button onclick="startQuiz()">Start Quiz</button>
+  </div>
 
-  <button onclick="chooseAnswer('Introverted')">Introverted</button>
-  <button onclick="chooseAnswer('Extroverted')">Extroverted</button>
-
-  <p id="result"></p>
-
-  <br>
-
-  <a href="index.html">⬅ Back to Home</a>
+  <!-- Quiz screen -->
+  <div id="quizScreen" style="display:none;">
+    <p id="questionText"></p>
+    <div id="answerButtons"></div>
+  </div>
 
   <script>
-    function chooseAnswer(answer) {
-      document.getElementById("result").innerText =
-        "You chose: " + answer;
+    // QUESTIONS
+    const questions = [
+      {
+        text: "Are you more introverted or extroverted?",
+        options: ["Introverted", "Extroverted"]
+      },
+      {
+        text: "How important is humor to you?",
+        options: ["Not important", "Somewhat important", "Very important"]
+      },
+      {
+        text: "Do you prefer deep talks or fun conversations?",
+        options: ["Deep talks", "Fun conversations"]
+      }
+    ];
+
+    let currentQuestion = 0;
+    let answers = [];
+
+    function startQuiz() {
+      document.getElementById("startScreen").style.display = "none";
+      document.getElementById("quizScreen").style.display = "block";
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const question = questions[currentQuestion];
+      document.getElementById("questionText").innerText = question.text;
+
+      const buttonsDiv = document.getElementById("answerButtons");
+      buttonsDiv.innerHTML = "";
+
+      question.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.innerText = option;
+        btn.onclick = () => selectAnswer(option);
+        buttonsDiv.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(answer) {
+      answers.push(answer);
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        // Quiz finished → go to next page
+        console.log("Profile answers:", answers);
+        window.location.href = "preferences.html";
+      }
     }
   </script>
 
