@@ -1,19 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>Your Profile Quiz</title>
+
+  <!-- Mobile-friendly scaling -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      aligned-items: center;
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 14px 24px;
+      margin: 12px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff6fae;
+      color: white;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>Tell us about you 💭</h1>
+  <h1>💭 Tell us about you</h1>
 
-<p>Are you more introverted or extroverted?</p>
-<button>Introverted</button>
-<button>Extroverted</button>
+  <p>Are you more introverted or extroverted?</p>
 
-<br><br>
+  <button onclick="chooseAnswer('Introverted')">Introverted</button>
+  <button onclick="chooseAnswer('Extroverted')">Extroverted</button>
 
-<a href="index.html">⬅ Back</a>
+  <p id="result"></p>
+
+  <br>
+
+  <a href="index.html">⬅ Back to Home</a>
+
+  <script>
+    function chooseAnswer(answer) {
+      document.getElementById("result").innerText =
+        "You chose: " + answer;
+    }
+  </script>
 
 </body>
 </html>
